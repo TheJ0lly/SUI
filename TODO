@@ -1,0 +1,2 @@
+label.cpp: Render - Put text in the middle of the label.
+Window.cpp: constructor - WindowHints make the window undrawable.

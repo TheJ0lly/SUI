@@ -5,17 +5,15 @@
 SUI::Window::Window(const char *title, u16 width, u16 height)
     : m_width(width), m_height(height), m_window(nullptr) {
     this->m_widgets = std::vector<SUI::Widget::Base*>();
-    // glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
 
     if (!glfwInit()) {
         exit(1);
     }
 
-    // These make the drawing to not work.
+    // TODO: These make the drawing to not work.
     // glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     // glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     // glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
     // glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
 
     // We create the window and the context.
@@ -53,8 +51,10 @@ void SUI::Window::Run(bool waitForEvents, u8 swapInterval) const {
         ProccessEvents = glfwWaitEvents;
     }
 
+    // The dynamic variables at runtime.
     s32 new_height = this->m_height, new_width = this->m_width;
     s32 fbHeight, fbWidth;
+    // We get the first frame buffer sizes.
     glfwGetFramebufferSize(this->m_window, &fbWidth, &fbHeight);
 
     while (!glfwWindowShouldClose(this->m_window)) {

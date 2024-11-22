@@ -6,11 +6,8 @@ SUI::Widget::Label::Label(u16 x, u16 y, u16 width, u16 height, const char *text)
 SUI::Widget::Label::~Label() { m_text.clear(); }
 
 void SUI::Widget::Label::ChangeText(const char *text) {
-    // We free the underlying pointer.
-    delete this->m_text.c_str();
-
     // We move the new text.
-    this->m_text = std::move(text);
+    this->m_text = text;
 }
 
 void SUI::Widget::Label::Render() {
@@ -40,6 +37,8 @@ void SUI::Widget::Label::Render() {
 	float textwidth = this->m_text.length() * 8;
 	float textheight = 13;
 
+	// The first character position. 
+	// TODO: Technically in the middle of the button.
 	glRasterPos2f(
 		Utility::ScreenToOpenGLCoordX(this->m_x + ((this->m_width - textwidth) / 2), 1920), 
 		Utility::ScreenToOpenGLCoordY(this->m_y + ((this->m_height - textheight) - 13), 1080)

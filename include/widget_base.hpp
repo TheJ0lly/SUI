@@ -7,6 +7,8 @@
 
 namespace SUI {
 namespace Widget {
+    // The base class for all widgets.
+    // It contains a position, width and height of the element.
     class Base {
         public:
             Base(u16 x, u16 y, u16 width, u16 height)
