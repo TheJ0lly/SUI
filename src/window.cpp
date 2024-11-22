@@ -1,29 +1,31 @@
 #include "../include/window.hpp"
 #include "../include/utility.hpp"
+#include <GL/freeglut.h>
 
 SUI::Window::Window(const char *title, u16 width, u16 height)
-    : m_width(width), m_height(height), m_window(nullptr, glfwDestroyWindow) {
+    : m_width(width), m_height(height), m_window(nullptr) {
     this->m_widgets = std::vector<SUI::Widget::Base*>();
+    // glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
 
     if (!glfwInit()) {
         exit(1);
     }
 
-    // We set the OpenGL version 4.6.
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    // These make the drawing to not work.
+    // glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    // glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    // glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
+    // glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
 
     // We create the window and the context.
-    this->m_window.reset(glfwCreateWindow(this->m_width, this->m_height, title, nullptr, nullptr));
-    glfwMakeContextCurrent(this->m_window.get());
+    this->m_window = glfwCreateWindow(this->m_width, this->m_height, title, nullptr, nullptr);
+    glfwMakeContextCurrent(this->m_window);
 }
 
 SUI::Window::~Window() {
     // We free the window.
-    glfwDestroyWindow(this->m_window.release());
+    glfwDestroyWindow(this->m_window);
 }
 
 void SUI::Window::SetBackground(u8 red, u8 green, u8 blue, u8 alpha) {
@@ -51,19 +53,32 @@ void SUI::Window::Run(bool waitForEvents, u8 swapInterval) const {
         ProccessEvents = glfwWaitEvents;
     }
 
-    while (!glfwWindowShouldClose(this->m_window.get())) {
+    s32 new_height = this->m_height, new_width = this->m_width;
+    s32 fbHeight, fbWidth;
+    glfwGetFramebufferSize(this->m_window, &fbWidth, &fbHeight);
 
+    while (!glfwWindowShouldClose(this->m_window)) {
+        
+        // As of now, we will always check for the window size, and if something has changed, we get the new
+        // framebuffer size 
+        glfwGetWindowSize(this->m_window, &new_width, &new_height);
+        if (new_height != this->m_height || new_width != this->m_width) {
+            // We get the new framebuffer sizes.
+            glfwGetFramebufferSize(this->m_window, &fbWidth, &fbHeight);
+            // We set the new viewport.
+            glViewport(0, 0, fbWidth, fbHeight);
+        }
+        
         // We clear the current frame and front buffer.
         glClear(GL_COLOR_BUFFER_BIT);
-        
+
         // We render all widgets of the current window onto the back buffer.
         for (auto w : this->m_widgets) {
             w->Render();
         }
 
-
         // We swap buffers.
-        glfwSwapBuffers(this->m_window.get());
+        glfwSwapBuffers(this->m_window);
         // Either if we wait or poll events, we call one variable. 
         ProccessEvents();
     }

@@ -30,9 +30,11 @@ namespace SUI {
             void Run(bool waitForEvents = false, u8 swapInterval = 1) const;
 
         private:
+            // Window sizes
             u16 m_width;
             u16 m_height;
-            std::unique_ptr<GLFWwindow, void(*)(GLFWwindow*)> m_window;
+
+            GLFWwindow *m_window;
             std::function<void()> m_proccessEventsFunc;
             u32 m_background;
             std::vector<SUI::Widget::Base *> m_widgets;

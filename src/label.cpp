@@ -15,27 +15,27 @@ void SUI::Widget::Label::ChangeText(const char *text) {
 
 void SUI::Widget::Label::Render() {
     // Set the background color.
-    glColor3f(
-        Utility::U8ToGLclampf(this->m_background & 0x000000FF), 
-        Utility::U8ToGLclampf((this->m_background & 0x0000FF00) >> 8), 
-        Utility::U8ToGLclampf((this->m_background & 0x0000FF00) >> 16)
-        );
-	
-	// Draw the background as a rect.
-	glRectf(
-		Utility::ScreenToOpenGLCoordX(0, 1920),
-		Utility::ScreenToOpenGLCoordY(0, 1080), 
-		Utility::ScreenToOpenGLCoordX(200, 1920), 
-		Utility::ScreenToOpenGLCoordY(200, 1080)
-		);
+	f32 red = Utility::U8ToGLclampf(this->m_background & 0x000000FF);
+	f32 green = Utility::U8ToGLclampf((this->m_background & 0x0000FF00) >> 8);
+	f32 blue = Utility::U8ToGLclampf((this->m_background & 0x00FF0000) >> 16);
+    glColor3f(red, green, blue);
 	
 
-	// Set the foreground color. 
-	glColor3f(
-        Utility::U8ToGLclampf(this->m_foreground & 0x000000FF), 
-        Utility::U8ToGLclampf((this->m_foreground & 0x0000FF00) >> 8), 
-        Utility::U8ToGLclampf((this->m_foreground & 0x0000FF00) >> 16)
-        );
+	f32 x1 = Utility::ScreenToOpenGLCoordX(this->m_x, 1920);
+	f32 x2 = Utility::ScreenToOpenGLCoordX(this->m_x + this->m_width, 1920);
+	f32 y1 = Utility::ScreenToOpenGLCoordY(this->m_y, 1080);
+	f32 y2 = Utility::ScreenToOpenGLCoordY(this->m_y + this->m_height, 1080);
+	
+	// Draw the background as a rect.
+	glRectf(x1, y1, x2, y2);
+
+	
+
+	// Set the foreground color.
+	red = Utility::U8ToGLclampf(this->m_foreground & 0x000000FF);
+	green = Utility::U8ToGLclampf((this->m_foreground & 0x0000FF00) >> 8);
+	blue = Utility::U8ToGLclampf((this->m_foreground & 0x00FF0000) >> 16);
+	glColor3f(red, green, blue);
 	
 	float textwidth = this->m_text.length() * 8;
 	float textheight = 13;
@@ -51,9 +51,9 @@ void SUI::Widget::Label::Render() {
 }
 
 void SUI::Widget::Label::SetBackground(u8 red, u8 green, u8 blue) {
-	return;
+	this->m_background = (blue << 16) | (green << 8) | red;
 }
 
 void SUI::Widget::Label::SetForeground(u8 red, u8 green, u8 blue) {
-	return;
+	this->m_foreground = (blue << 16) | (green << 8) | red;
 }
