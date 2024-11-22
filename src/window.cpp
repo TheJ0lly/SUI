@@ -27,7 +27,12 @@ SUI::Window::~Window() {
 }
 
 void SUI::Window::SetBackground(u8 red, u8 green, u8 blue, u8 alpha) {
-    glClearColor(red, green, blue, alpha);
+    glClearColor(
+        Utility::U8ToGLclampf(red), 
+        Utility::U8ToGLclampf(green), 
+        Utility::U8ToGLclampf(blue), 
+        Utility::U8ToGLclampf(alpha)
+        );
 }
 
 u16 SUI::Window::GetWidth() const {
