@@ -59,7 +59,7 @@ void SUI::Window::Run(bool waitForEvents, u8 swapInterval) const {
 
     while (!glfwWindowShouldClose(this->m_window)) {
         
-        // As of now, we will always check for the window size, and if something has changed, we get the new
+        // TODO: As of now, we will always check for the window size, and if something has changed, we get the new
         // framebuffer size 
         glfwGetWindowSize(this->m_window, &new_width, &new_height);
         if (new_height != this->m_height || new_width != this->m_width) {
