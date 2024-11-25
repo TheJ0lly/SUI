@@ -47,6 +47,14 @@ u16 SUI::Window::GetHeight() const {
     return this->m_height;
 }
 
+void SUI::Window::SetWidth(u16 width) {
+    this->m_width = width;
+};
+
+void SUI::Window::SetHeight(u16 height) {
+    this->m_height = height;
+}
+
 void SUI::Window::AddWidget(SUI::Widget::Base *w) {
     this->m_widgets.push_back(w);
 }
@@ -66,19 +74,20 @@ void SUI::Window::Run(bool waitForEvents, u8 swapInterval) {
     // We get the first frame buffer sizes.
     glfwGetFramebufferSize(this->m_window, &fbWidth, &fbHeight);
 
+
+    // Framebuffer resizing callback.
+    glfwSetFramebufferSizeCallback(SUI::WinMan::GetInstance()->m_window, [](GLFWwindow *win, int width, int height) -> void {
+        // We resize the viewport to the framebuffer size.
+        glViewport(0, 0, width, height);
+    });
+
+    // Window resizing callback.
+    glfwSetWindowSizeCallback(SUI::WinMan::GetInstance()->m_window, [](GLFWwindow *win, int width, int height) -> void {
+        SUI::WinMan::GetInstance()->SetHeight(height);
+        SUI::WinMan::GetInstance()->SetWidth(width);
+    });
+
     while (!glfwWindowShouldClose(this->m_window)) {
-        // TODO: As of now, we will always check for the window size, and if something has changed, we get the new
-        // framebuffer size 
-        glfwGetWindowSize(this->m_window, &new_width, &new_height);
-        if (new_height != this->m_height || new_width != this->m_width) {
-            this->m_height = new_height;
-            this->m_width = new_width;
-            // We get the new framebuffer sizes.
-            glfwGetFramebufferSize(this->m_window, &fbWidth, &fbHeight);
-            // We set the new viewport.
-            glViewport(0, 0, fbWidth, fbHeight);
-        }
-        
         // We clear the current frame and front buffer.
         glClear(GL_COLOR_BUFFER_BIT);
 
@@ -89,6 +98,8 @@ void SUI::Window::Run(bool waitForEvents, u8 swapInterval) {
 
         // We swap buffers.
         glfwSwapBuffers(this->m_window);
+        
+        
         // Either if we wait or poll events, we call one variable. 
         ProccessEvents();
     }

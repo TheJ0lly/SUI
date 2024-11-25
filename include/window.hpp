@@ -32,6 +32,16 @@ namespace SUI {
             u16 GetHeight() const;
 
             /*
+            Set window width.
+            */
+            void SetWidth(u16 width);
+
+            /*
+            Set window height.
+            */
+            void SetHeight(u16 height);
+
+            /*
             Add a new widget that the window should manage.
             */
             void AddWidget(SUI::Widget::Base *w);
