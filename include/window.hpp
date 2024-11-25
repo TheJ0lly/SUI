@@ -42,7 +42,7 @@ namespace SUI {
             `waitForEvents` - if set to `true`, we will use glfwWaitEvents instead of glfwPollEvents.
             `swapInterval`  - the minimum amount of frames to pass before we swap buffers.
             */ 
-            void Run(bool waitForEvents = false, u8 swapInterval = 1) const;
+            void Run(bool waitForEvents = false, u8 swapInterval = 1);
 
         private:
             // Window sizes

@@ -51,7 +51,7 @@ void SUI::Window::AddWidget(SUI::Widget::Base *w) {
     this->m_widgets.push_back(w);
 }
 
-void SUI::Window::Run(bool waitForEvents, u8 swapInterval) const {
+void SUI::Window::Run(bool waitForEvents, u8 swapInterval) {
     glfwSwapInterval(swapInterval);
 
     std::function<void()> ProccessEvents = glfwPollEvents;
@@ -67,11 +67,12 @@ void SUI::Window::Run(bool waitForEvents, u8 swapInterval) const {
     glfwGetFramebufferSize(this->m_window, &fbWidth, &fbHeight);
 
     while (!glfwWindowShouldClose(this->m_window)) {
-        
         // TODO: As of now, we will always check for the window size, and if something has changed, we get the new
         // framebuffer size 
         glfwGetWindowSize(this->m_window, &new_width, &new_height);
         if (new_height != this->m_height || new_width != this->m_width) {
+            this->m_height = new_height;
+            this->m_width = new_width;
             // We get the new framebuffer sizes.
             glfwGetFramebufferSize(this->m_window, &fbWidth, &fbHeight);
             // We set the new viewport.
