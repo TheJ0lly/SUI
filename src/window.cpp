@@ -25,10 +25,8 @@ SUI::Window::Window(const char *title, u16 width, u16 height)
     SUI::WinMan::SetInstance(this);    
 }
 
-SUI::Window::~Window() {
-    // We free the window.
-    glfwDestroyWindow(this->m_window);
-}
+
+SUI::Window::~Window() { /* We free the window. */glfwDestroyWindow(this->m_window); }
 
 void SUI::Window::SetBackground(u8 red, u8 green, u8 blue, u8 alpha) {
     glClearColor(
@@ -39,25 +37,15 @@ void SUI::Window::SetBackground(u8 red, u8 green, u8 blue, u8 alpha) {
         );
 }
 
-u16 SUI::Window::GetWidth() const {
-    return this->m_width;
-};
+u16 SUI::Window::GetWidth() const { return this->m_width; };
 
-u16 SUI::Window::GetHeight() const {
-    return this->m_height;
-}
+u16 SUI::Window::GetHeight() const { return this->m_height; }
 
-void SUI::Window::SetWidth(u16 width) {
-    this->m_width = width;
-};
+void SUI::Window::SetWidth(u16 width) { this->m_width = width; };
 
-void SUI::Window::SetHeight(u16 height) {
-    this->m_height = height;
-}
+void SUI::Window::SetHeight(u16 height) { this->m_height = height; }
 
-void SUI::Window::AddWidget(SUI::Widget::Base *w) {
-    this->m_widgets.push_back(w);
-}
+void SUI::Window::AddWidget(SUI::Widget::Base *w) { this->m_widgets.push_back(w); }
 
 void SUI::Window::Run(bool pollEvents, u8 swapInterval) {
     glfwSwapInterval(swapInterval);
