@@ -6,10 +6,7 @@ SUI::Widget::Label::Label(u16 x, u16 y, u16 width, u16 height, const char *text)
 
 SUI::Widget::Label::~Label() { m_text.clear(); }
 
-void SUI::Widget::Label::ChangeText(const char *text) {
-    // We move the new text.
-    this->m_text = text;
-}
+void SUI::Widget::Label::ChangeText(const char *text) { this->m_text = text; }
 
 void SUI::Widget::Label::Render() {
 	
@@ -54,10 +51,6 @@ void SUI::Widget::Label::Render() {
 		glutBitmapCharacter(GLUT_BITMAP_8_BY_13, *text++);
 }
 
-void SUI::Widget::Label::SetBackground(u8 red, u8 green, u8 blue) {
-	this->m_background = (blue << 16) | (green << 8) | red;
-}
+void SUI::Widget::Label::SetBackground(u8 red, u8 green, u8 blue) { this->m_background = (blue << 16) | (green << 8) | red; }
 
-void SUI::Widget::Label::SetForeground(u8 red, u8 green, u8 blue) {
-	this->m_foreground = (blue << 16) | (green << 8) | red;
-}
+void SUI::Widget::Label::SetForeground(u8 red, u8 green, u8 blue) { this->m_foreground = (blue << 16) | (green << 8) | red; }
