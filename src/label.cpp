@@ -19,14 +19,13 @@ void SUI::Widget::Label::Render() {
 	f32 blue = Utility::U8ToGLclampf((this->m_background & 0x00FF0000) >> 16);
     glColor3f(red, green, blue);
 	
-
-	f32 x1 = Utility::ScreenToOpenGLCoordX(this->m_x, win_width);
-	f32 x2 = Utility::ScreenToOpenGLCoordX(this->m_x + this->m_width, win_width);
-	f32 y1 = Utility::ScreenToOpenGLCoordY(this->m_y, win_height);
-	f32 y2 = Utility::ScreenToOpenGLCoordY(this->m_y + this->m_height, win_height);
-	
 	// Draw the background as a rect.
-	glRectf(x1, y1, x2, y2);
+	glRectf(
+		Utility::ScreenToOpenGLCoordX(this->m_x, win_width),
+		Utility::ScreenToOpenGLCoordY(this->m_y, win_height),
+		Utility::ScreenToOpenGLCoordX(this->m_x + this->m_width, win_width),
+		Utility::ScreenToOpenGLCoordY(this->m_y + this->m_height, win_height)
+		);
 
 	
 
