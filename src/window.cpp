@@ -59,13 +59,14 @@ void SUI::Window::AddWidget(SUI::Widget::Base *w) {
     this->m_widgets.push_back(w);
 }
 
-void SUI::Window::Run(bool waitForEvents, u8 swapInterval) {
+void SUI::Window::Run(bool pollEvents, u8 swapInterval) {
     glfwSwapInterval(swapInterval);
 
-    std::function<void()> ProccessEvents = glfwPollEvents;
+    std::function<void()> ProccessEvents = glfwWaitEvents;
 
-    if (waitForEvents) {
-        ProccessEvents = glfwWaitEvents;
+    if (pollEvents) {
+        ProccessEvents = glfwPollEvents;
+        printf("Hit\n");
     }
 
     // The dynamic variables at runtime.

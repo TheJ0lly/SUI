@@ -49,10 +49,10 @@ namespace SUI {
             /*
             Run the program.
 
-            `waitForEvents` - if set to `true`, we will use glfwWaitEvents instead of glfwPollEvents.
+            `pollEvents`    - if set to `true`, we will use `glfwPollEvents` instead of `glfwWaitEvents`.
             `swapInterval`  - the minimum amount of frames to pass before we swap buffers.
             */ 
-            void Run(bool waitForEvents = false, u8 swapInterval = 1);
+            void Run(bool pollEvents = false, u8 swapInterval = 1);
 
         private:
             // Window sizes
