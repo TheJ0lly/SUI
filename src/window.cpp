@@ -1,5 +1,6 @@
 #include "../include/window.hpp"
 #include "../include/utility.hpp"
+#include "../include/window_manager.hpp"
 #include <GL/freeglut.h>
 
 SUI::Window::Window(const char *title, u16 width, u16 height)
@@ -19,6 +20,9 @@ SUI::Window::Window(const char *title, u16 width, u16 height)
     // We create the window and the context.
     this->m_window = glfwCreateWindow(this->m_width, this->m_height, title, nullptr, nullptr);
     glfwMakeContextCurrent(this->m_window);
+
+    // Creating a new window, automatically selects it as the current window.
+    SUI::WinMan::SetInstance(this);    
 }
 
 SUI::Window::~Window() {
