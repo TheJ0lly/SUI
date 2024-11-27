@@ -9,7 +9,7 @@
 #include <GLFW/glfw3.h>
 
 // Internal
-#include "coretypes.hpp"
+#include "core.hpp"
 #include "widget_base.hpp"
 
 namespace SUI {

@@ -14,3 +14,13 @@ typedef signed long s64;
 
 typedef float f32;
 typedef double f64;
+
+#ifdef DEBUG
+	#include <stdio.h>
+
+	#define LOG(...) do { \
+		printf(__VA_ARGS__); \
+	} while (false)
+#else
+	#define LOG(...) // Nothing
+#endif

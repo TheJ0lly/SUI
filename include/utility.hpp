@@ -1,6 +1,6 @@
 #pragma once
 
-#include "coretypes.hpp"
+#include "core.hpp"
 
 namespace Utility {
     // Convert an `u8` (byte) to a `GLclampf`.

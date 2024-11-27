@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "coretypes.hpp"
+#include "core.hpp"
 
 
 namespace SUI {
