@@ -21,6 +21,8 @@ namespace SUI {
             /* All values should be passed in the range 0-255. */
             void SetBackground(u8 red, u8 green, u8 blue, u8 alpha);
 
+            GLW::Color GetBackground();
+
             /*
             Get window width.
             */
@@ -65,7 +67,7 @@ namespace SUI {
             GLFWwindow *m_window;
 
             // The background color
-            u32 m_background;
+            GLW::Color m_background;
 
             // The widgets this window will handle.
             std::vector<SUI::Widget::IRenderable *> m_widgets;
