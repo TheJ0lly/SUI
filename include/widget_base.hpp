@@ -1,10 +1,7 @@
 #pragma once
 
-#include <iostream>
-
 #include "core.hpp"
 #include "opengl_wrapper.hpp"
-
 
 namespace SUI {
 namespace Widget {
@@ -16,7 +13,7 @@ namespace Widget {
                 : m_x(x), m_y(y), m_width(width), m_height(height) {};
             ~IRenderable() {};
 
-            virtual void Render() = 0;
+            virtual void Render(void) = 0;
             virtual void SetBackground(u8 red, u8 green, u8 blue, u8 alpha) { 
                 m_background.color = (alpha << 24) | (blue << 16) | (green << 8) | red; 
                 LOG("New background:\n  R: %d\n  G: %d\n  B: %d\n  A: %d\n\n", m_background.red, m_background.green, m_background.blue, m_background.alpha);

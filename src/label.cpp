@@ -11,7 +11,7 @@ namespace Widget {
 
 	void Label::ChangeText(const char *text) { m_text = text; }
 
-	void Label::Render() {
+	void Label::Render(void) {
 
 		if (m_pad != 0) {
 			/* We use 8 by 9 because as of now we do not support any other fonts.

@@ -1,9 +1,7 @@
 #pragma once
 
 // STD Libraries
-#include <functional>
 #include <vector>
-#include <memory>
 
 // OpenGL libraries
 #include <GLFW/glfw3.h>
@@ -21,17 +19,17 @@ namespace SUI {
             /* All values should be passed in the range 0-255. */
             void SetBackground(u8 red, u8 green, u8 blue, u8 alpha);
 
-            GLW::Color GetBackground();
+            GLW::Color GetBackground(void);
 
             /*
             Get window width.
             */
-            u16 GetWidth() const;
+            u16 GetWidth(void) const;
 
             /*
             Get window height.
             */
-            u16 GetHeight() const;
+            u16 GetHeight(void) const;
 
             /*
             Set window width.
@@ -57,7 +55,7 @@ namespace SUI {
             void Run(bool pollEvents = false, u8 swapInterval = 1);
 
         private:
-            void ResetOrthoMatrix();
+            void ResetOrthoMatrix(void);
 
             // Window sizes
             u16 m_width;

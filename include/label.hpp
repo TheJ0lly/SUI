@@ -1,6 +1,6 @@
 #pragma once
 
-#include <GL/freeglut.h>
+#include <string>
 
 #include "widget_base.hpp"
 
@@ -12,7 +12,7 @@ namespace Widget {
             ~Label();
 
             // Renders the specific item.
-            virtual void Render();
+            virtual void Render(void);
 
             // Sets the text of the label.
             void ChangeText(const char *text);

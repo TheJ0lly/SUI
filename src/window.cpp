@@ -36,13 +36,13 @@ namespace SUI {
         glClearColor( red / 255.0f, green / 255.0f, blue / 255.0f, alpha / 255.0f );
     }
 
-    GLW::Color Window::GetBackground() {
+    GLW::Color Window::GetBackground(void) {
         return m_background;
     }
 
-    u16 Window::GetWidth() const { return m_width; };
+    u16 Window::GetWidth(void) const { return m_width; };
 
-    u16 Window::GetHeight() const { return m_height; }
+    u16 Window::GetHeight(void) const { return m_height; }
 
     void Window::SetWidth(u16 width) { m_width = width; };
 
@@ -53,7 +53,7 @@ namespace SUI {
     void Window::Run(bool pollEvents, u8 swapInterval) {
         glfwSwapInterval(swapInterval);
 
-        std::function<void()> ProccessEvents = glfwWaitEvents;
+        void (*ProccessEvents)(void) = glfwWaitEvents;
 
         if (pollEvents) {
             ProccessEvents = glfwPollEvents;
