@@ -18,13 +18,13 @@ namespace Widget {
                 m_background.color = (alpha << 24) | (blue << 16) | (green << 8) | red; 
                 LOG("New background:\n  R: %d\n  G: %d\n  B: %d\n  A: %d\n\n", m_background.red, m_background.green, m_background.blue, m_background.alpha);
             };
-            virtual void SetBackground(GLW::Color c) { SetBackground(c.red, c.green, c.blue, c.alpha); };
+            virtual void SetBackground(GLW::Color c) { SetBackground(c.b.red, c.b.green, c.b.blue, c.b.alpha); };
 
             virtual void SetForeground(u8 red, u8 green, u8 blue, u8 alpha) { 
                 m_foreground.color = (alpha << 24) | (blue << 16) | (green << 8) | red;
                 LOG("New foreground:\n  R: %d\n  G: %d\n  B: %d\n  A: %d\n\n", m_foreground.red, m_foreground.green, m_foreground.blue, m_foreground.alpha);
             };
-            virtual void SetForeground(GLW::Color c) { SetForeground(c.red, c.green, c.blue, c.alpha); };
+            virtual void SetForeground(GLW::Color c) { SetForeground(c.b.red, c.b.green, c.b.blue, c.b.alpha); };
 
         protected:
             u16 m_x, m_y;

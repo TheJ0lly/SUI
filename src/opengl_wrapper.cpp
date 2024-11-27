@@ -26,11 +26,11 @@ namespace GLW {
     }
 
     GLenum RenderRectangle(f32 x1, f32 y1, f32 x2, f32 y2, Color c) {
-        return RenderRectangle(x1, y1, x2, y2, c.red, c.green, c.blue, c.alpha);
+        return RenderRectangle(x1, y1, x2, y2, c.b.red, c.b.green, c.b.blue, c.b.alpha);
     }
 
     GLenum RenderRectangle(Rectangle r, Color c) {
-        return RenderRectangle(r.x1, r.y1, r.x2, r.y2, c.red, c.green, c.blue, c.alpha);
+        return RenderRectangle(r.x1, r.y1, r.x2, r.y2, c.b.red, c.b.green, c.b.blue, c.b.alpha);
     }
 
     f32 GetRectangleCenterX(f32 x1, f32 x2) {
@@ -69,7 +69,7 @@ namespace GLW {
     }
 
     GLenum RenderText(const char *text, u32 textlen, f32 x, f32 y, Color c) {
-        return RenderText(text, textlen, x, y, c.red, c.green, c.blue, c.alpha);
+        return RenderText(text, textlen, x, y, c.b.red, c.b.green, c.b.blue, c.b.alpha);
     }
 
 }

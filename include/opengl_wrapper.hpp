@@ -10,16 +10,18 @@ namespace GLW {
         f32 x1, x2, y1, y2;
     } Rectangle;
 
+    typedef struct {
+        // In accordance to the endianess of the system, this is how the bytes should be aligned. 
+        #if defined(__BYTE_ORDER__) && __BYTE_ORDER__ == __ORDER_BIG_ENDIAN__ 
+        u8 alpha, blue, green, red;
+        #else
+        u8 red, green, blue, alpha;
+        #endif
+    } RGBA;
+
     typedef union {
         u32 color;
-        struct {
-            // In accordance to the endianess of the system, this is how the bytes should be aligned. 
-            #if defined(__BYTE_ORDER__) && __BYTE_ORDER__ == __ORDER_BIG_ENDIAN__ 
-            u8 alpha, blue, green, red;
-            #else
-            u8 red, green, blue, alpha;
-            #endif
-        };
+        RGBA b;
     } Color;
 
     /*

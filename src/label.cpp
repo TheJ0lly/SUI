@@ -39,7 +39,7 @@ namespace Widget {
 			m_text.length(), 
 			m_x, 
 			m_y,
-			m_foreground.red, m_foreground.green, m_foreground.blue, m_foreground.alpha
+			m_foreground.b.red, m_foreground.b.green, m_foreground.b.blue, m_foreground.b.alpha
 			);
 
 		LOG("Label Text:\n  x: %f\n  y: %f\n\n", textX, textY);
