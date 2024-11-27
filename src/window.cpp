@@ -96,5 +96,5 @@ void SUI::Window::ResetOrthoMatrix() {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     gluOrtho2D(0, m_width, m_height, 0);
-    LOG("Setting Ortographic Matrix:\n  Right: %d\n  Bottom: %d\n", m_width, m_height);
+    LOG("Setting Ortographic Matrix:\n  Right: %d\n  Bottom: %d\n\n", m_width, m_height);
 }

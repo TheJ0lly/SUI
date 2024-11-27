@@ -11,10 +11,7 @@ namespace Widget {
 
 	void Label::ChangeText(const char *text) { m_text = text; }
 
-	void Label::Render() {
-		u16 win_height = SUI::WinMan::GetInstance()->GetHeight();
-		u16 win_width = SUI::WinMan::GetInstance()->GetWidth();
-		
+	void Label::Render() {		
 		f32 x1 = m_x;
 		f32 y1 = m_y;
 		f32 x2 = m_x + m_width;
