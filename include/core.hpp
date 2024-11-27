@@ -18,9 +18,9 @@ typedef double f64;
 #ifdef DEBUG
 	#include <stdio.h>
 
-	#define LOG(...) do { \
-		printf(__VA_ARGS__); \
+	#define LOG(fmt, ...) do { \
+		printf((fmt), ##__VA_ARGS__); \
 	} while (false)
 #else
-	#define LOG(...) // Nothing
+	#define LOG(fmt, ...) // Nothing
 #endif
