@@ -5,7 +5,7 @@
 
 SUI::Window::Window(const char *title, u16 width, u16 height)
     : m_width(width), m_height(height), m_window(nullptr) {
-    this->m_widgets = std::vector<SUI::Widget::Base*>();
+    m_widgets = std::vector<SUI::Widget::Base*>();
 
     if (!glfwInit()) {
         exit(1);
@@ -17,16 +17,19 @@ SUI::Window::Window(const char *title, u16 width, u16 height)
     // glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     // glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
 
+
     // We create the window and the context.
-    this->m_window = glfwCreateWindow(this->m_width, this->m_height, title, nullptr, nullptr);
-    glfwMakeContextCurrent(this->m_window);
+    m_window = glfwCreateWindow(m_width, m_height, title, nullptr, nullptr);
+    glfwMakeContextCurrent(m_window);
+
+    ResetOrthoMatrix();
 
     // Creating a new window, automatically selects it as the current window.
     SUI::WinMan::SetInstance(this);    
 }
 
 
-SUI::Window::~Window() { /* We free the window. */glfwDestroyWindow(this->m_window); }
+SUI::Window::~Window() { /* We free the window. */glfwDestroyWindow(m_window); }
 
 void SUI::Window::SetBackground(u8 red, u8 green, u8 blue, u8 alpha) {
     glClearColor(
@@ -37,15 +40,15 @@ void SUI::Window::SetBackground(u8 red, u8 green, u8 blue, u8 alpha) {
         );
 }
 
-u16 SUI::Window::GetWidth() const { return this->m_width; };
+u16 SUI::Window::GetWidth() const { return m_width; };
 
-u16 SUI::Window::GetHeight() const { return this->m_height; }
+u16 SUI::Window::GetHeight() const { return m_height; }
 
-void SUI::Window::SetWidth(u16 width) { this->m_width = width; };
+void SUI::Window::SetWidth(u16 width) { m_width = width; };
 
-void SUI::Window::SetHeight(u16 height) { this->m_height = height; }
+void SUI::Window::SetHeight(u16 height) { m_height = height; }
 
-void SUI::Window::AddWidget(SUI::Widget::Base *w) { this->m_widgets.push_back(w); }
+void SUI::Window::AddWidget(SUI::Widget::Base *w) { m_widgets.push_back(w); }
 
 void SUI::Window::Run(bool pollEvents, u8 swapInterval) {
     glfwSwapInterval(swapInterval);
@@ -54,43 +57,47 @@ void SUI::Window::Run(bool pollEvents, u8 swapInterval) {
 
     if (pollEvents) {
         ProccessEvents = glfwPollEvents;
-        printf("Hit\n");
     }
-
-    // The dynamic variables at runtime.
-    s32 new_height = this->m_height, new_width = this->m_width;
-    s32 fbHeight, fbWidth;
-    // We get the first frame buffer sizes.
-    glfwGetFramebufferSize(this->m_window, &fbWidth, &fbHeight);
-
-
     // Framebuffer resizing callback.
     glfwSetFramebufferSizeCallback(SUI::WinMan::GetInstance()->m_window, [](GLFWwindow *win, int width, int height) -> void {
-        // We resize the viewport to the framebuffer size.
-        glViewport(0, 0, width, height);
+        // We reset the orthographic projection matrix.
+        SUI::WinMan::GetInstance()->ResetOrthoMatrix();
     });
 
     // Window resizing callback.
     glfwSetWindowSizeCallback(SUI::WinMan::GetInstance()->m_window, [](GLFWwindow *win, int width, int height) -> void {
         SUI::WinMan::GetInstance()->SetHeight(height);
         SUI::WinMan::GetInstance()->SetWidth(width);
+        SUI::WinMan::GetInstance()->ResetOrthoMatrix();
     });
 
-    while (!glfwWindowShouldClose(this->m_window)) {
+    while (!glfwWindowShouldClose(m_window)) {
         // We clear the current frame and front buffer.
         glClear(GL_COLOR_BUFFER_BIT);
 
+        glMatrixMode(GL_MODELVIEW);
         // We render all widgets of the current window onto the back buffer.
-        for (auto w : this->m_widgets) {
+        for (auto w : m_widgets) {
             w->Render();
         }
 
+        // We flush all drawing calls.
+        glFlush();
         // We swap buffers.
-        glfwSwapBuffers(this->m_window);
+        glfwSwapBuffers(m_window);
         
         
         // Either if we wait or poll events, we call one variable. 
         ProccessEvents();
     }
     glfwTerminate();
+}
+
+void SUI::Window::ResetOrthoMatrix() {
+     // We resize the viewport to the framebuffer size.
+    glViewport(0, 0, m_width, m_height);
+    // We reset the orthographic projection matrix.
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluOrtho2D(0, m_width, m_height, 0);
 }

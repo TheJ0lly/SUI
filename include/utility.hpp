@@ -15,13 +15,4 @@ namespace Utility {
 
        return (c + (d - c) * (byte - a) / (b - a));
     }
-
-    // We convert a screen coordinate X to OpenGL normalized device coordinates(NDC).
-    inline f32 ScreenToOpenGLCoordX (f32 x, u16 window_width) {
-        return 2.0f * x / window_width - 1.0f;
-    }
-    // We convert a screen coordinate Y to OpenGL normalized device coordinates(NDC).
-    inline f32 ScreenToOpenGLCoordY (f32 y, u16 window_height) {
-        return 1.0f - 2.0f * y / window_height;
-    }
 }

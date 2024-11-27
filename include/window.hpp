@@ -55,6 +55,8 @@ namespace SUI {
             void Run(bool pollEvents = false, u8 swapInterval = 1);
 
         private:
+            void ResetOrthoMatrix();
+
             // Window sizes
             u16 m_width;
             u16 m_height;
