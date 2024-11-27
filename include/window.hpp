@@ -44,7 +44,7 @@ namespace SUI {
             /*
             Add a new widget that the window should manage.
             */
-            void AddWidget(SUI::Widget::Base *w);
+            void AddWidget(SUI::Widget::IRenderable *w);
 
             /*
             Run the program.
@@ -68,6 +68,6 @@ namespace SUI {
             u32 m_background;
 
             // The widgets this window will handle.
-            std::vector<SUI::Widget::Base *> m_widgets;
+            std::vector<SUI::Widget::IRenderable *> m_widgets;
     };
 }

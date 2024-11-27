@@ -1,11 +1,10 @@
 #include "../include/window.hpp"
-#include "../include/utility.hpp"
 #include "../include/window_manager.hpp"
 #include <GL/freeglut.h>
 
 SUI::Window::Window(const char *title, u16 width, u16 height)
     : m_width(width), m_height(height), m_window(nullptr) {
-    m_widgets = std::vector<SUI::Widget::Base*>();
+    m_widgets = std::vector<SUI::Widget::IRenderable*>();
 
     if (!glfwInit()) {
         exit(1);
@@ -32,12 +31,7 @@ SUI::Window::Window(const char *title, u16 width, u16 height)
 SUI::Window::~Window() { /* We free the window. */glfwDestroyWindow(m_window); }
 
 void SUI::Window::SetBackground(u8 red, u8 green, u8 blue, u8 alpha) {
-    glClearColor(
-        Utility::U8ToGLclampf(red), 
-        Utility::U8ToGLclampf(green), 
-        Utility::U8ToGLclampf(blue), 
-        Utility::U8ToGLclampf(alpha)
-        );
+    glClearColor( red / 255.0f, green / 255.0f, blue / 255.0f, alpha / 255.0f );
 }
 
 u16 SUI::Window::GetWidth() const { return m_width; };
@@ -48,7 +42,7 @@ void SUI::Window::SetWidth(u16 width) { m_width = width; };
 
 void SUI::Window::SetHeight(u16 height) { m_height = height; }
 
-void SUI::Window::AddWidget(SUI::Widget::Base *w) { m_widgets.push_back(w); }
+void SUI::Window::AddWidget(SUI::Widget::IRenderable *w) { m_widgets.push_back(w); }
 
 void SUI::Window::Run(bool pollEvents, u8 swapInterval) {
     glfwSwapInterval(swapInterval);
@@ -96,8 +90,11 @@ void SUI::Window::Run(bool pollEvents, u8 swapInterval) {
 void SUI::Window::ResetOrthoMatrix() {
      // We resize the viewport to the framebuffer size.
     glViewport(0, 0, m_width, m_height);
+    LOG("Setting viewport:\n  Width: %d\n  Height: %d\n\n", m_width, m_height);
+
     // We reset the orthographic projection matrix.
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     gluOrtho2D(0, m_width, m_height, 0);
+    LOG("Setting Ortographic Matrix:\n  Right: %d\n  Bottom: %d\n", m_width, m_height);
 }
