@@ -50,17 +50,9 @@ namespace GLW {
         if ((err = glGetError()) != GL_NO_ERROR) {
             return err;
         }
-        
-        // As of now we only use the font that comes with OpenGL.
-        f32 textwidth = textlen * 8;
-        f32 textheight = 13;
 
-        // The first character position. 
-        // TODO: Technically in the middle of the button.
-        f32 textX = x - (textwidth / 2.0f);
-        f32 textY = y - (textheight / 2.0f);
-
-        glRasterPos2f(textX, textY);
+        // The bottom-left position of the first character. 
+        glRasterPos2f(x, y);
 
         if ((err = glGetError()) != GL_NO_ERROR) {
             return err;
