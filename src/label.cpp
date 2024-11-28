@@ -28,7 +28,6 @@ void Label::Render(void) {
 		f32 y1 = m_y - font_height - m_pad;
 		f32 x2 = m_x + m_text.length() * font_width + m_pad;
 		f32 y2 = m_y + m_pad;
-		LOG("Label Rect:\n  x1: %f\n  y1: %f\n  x2: %f\n  y2: %f\n\n", x1, y1, x2, y2);
 
 		// Draw the rectangle that is the background of the label.
 		GLW::RenderRectangle(x1, y1, x2, y2, m_background);
@@ -40,6 +39,4 @@ void Label::Render(void) {
 		m_y,
 		m_foreground.b.red, m_foreground.b.green, m_foreground.b.blue, m_foreground.b.alpha
 		);
-
-	LOG("Label Text:\n  x: %f\n  y: %f\n\n", textX, textY);
 }

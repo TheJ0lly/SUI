@@ -96,12 +96,10 @@ namespace SUI {
     void Window::ResetOrthoMatrix() {
         // We resize the viewport to the framebuffer size.
         glViewport(0, 0, m_width, m_height);
-        LOG("Setting viewport:\n  Width: %d\n  Height: %d\n\n", m_width, m_height);
 
         // We reset the orthographic projection matrix.
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
         gluOrtho2D(0, m_width, m_height, 0);
-        LOG("Setting Ortographic Matrix:\n  Right: %d\n  Bottom: %d\n\n", m_width, m_height);
     }
 }

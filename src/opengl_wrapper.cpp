@@ -38,7 +38,10 @@ namespace GLW {
     }
 
     Point GetRectangleCenter(f32 x1, f32 y1, f32 x2, f32 y2) {
-        return Point{.x = (x1 + x2) / 2.0f, .y = (y1 + y2) / 2.0f};
+        Point center;
+        center.x = (x1 + x2) / 2.0f;
+        center.y = (y1 + y2) / 2.0f;
+        return center;
     }
 
     GLenum RenderText(const char *text, f32 x, f32 y, u8 red, u8 green, u8 blue, u8 alpha) {
