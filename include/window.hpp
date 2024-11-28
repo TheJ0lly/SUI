@@ -44,7 +44,13 @@ namespace SUI {
             /*
             Add a new widget that the window should manage.
             */
-            void AddWidget(SUI::Widget::IRenderable *w);
+            void AddWidget(Widget::BaseWidget *w);
+
+            /*
+            Triggers when there is a click on the current window.
+            Sets `m_selected` to the clicked widget.
+            */
+            void CheckClick(Widget::MouseEvent eventArgs);
 
             /*
             Run the program.
@@ -64,10 +70,12 @@ namespace SUI {
             // The window
             GLFWwindow *m_window;
 
+            Widget::BaseWidget *m_selected;
+
             // The background color
             GLW::Color m_background;
 
             // The widgets this window will handle.
-            std::vector<SUI::Widget::IRenderable *> m_widgets;
+            std::vector<Widget::BaseWidget *> m_widgets;
     };
 }

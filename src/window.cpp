@@ -4,8 +4,8 @@
 
 namespace SUI {
     Window::Window(const char *title, u16 width, u16 height)
-        : m_width(width), m_height(height), m_window(nullptr) {
-        m_widgets = std::vector<Widget::IRenderable*>();
+        : m_width(width), m_height(height), m_window(nullptr), m_selected(nullptr) {
+        m_widgets = std::vector<Widget::BaseWidget*>();
 
         if (!glfwInit()) {
             exit(1);
@@ -48,7 +48,23 @@ namespace SUI {
 
     void Window::SetHeight(u16 height) { m_height = height; }
 
-    void Window::AddWidget(Widget::IRenderable *w) { m_widgets.push_back(w); }
+    void Window::AddWidget(Widget::BaseWidget *w) { m_widgets.push_back(w); }
+
+    void Window::CheckClick(Widget::MouseEvent eventArgs) {
+        for (auto w : m_widgets) {
+            f32 x1 = w->GetX();
+            f32 y1 = w->GetY();
+            f32 x2 = x1 + w->GetWidth();
+            f32 y2 = y1 + w->GetHeight();
+
+            if (eventArgs.xpos >= x1 && eventArgs.xpos <= x2 && eventArgs.ypos >= y1 && eventArgs.ypos <= y2) {
+                this->m_selected = w;
+
+                // As of now we simply break since we do not have any containers.
+                break;
+            }
+        }
+    }
 
     void Window::Run(bool pollEvents, u8 swapInterval) {
         glfwSwapInterval(swapInterval);
@@ -71,6 +87,22 @@ namespace SUI {
             WinMan::GetInstance()->ResetOrthoMatrix();
         });
 
+        // Window mouse press callback.
+        glfwSetMouseButtonCallback(WinMan::GetInstance()->m_window, [](GLFWwindow *win, int button, int action, int mods) -> void {
+            if (action != GLFW_PRESS) {
+                f64 xpos, ypos;
+                glfwGetCursorPos(WinMan::GetInstance()->m_window, &xpos, &ypos);
+                Widget::MouseEvent me;
+                me.action = action;
+                me.button = button;
+                me.mods = mods;
+                me.xpos = xpos;
+                me.ypos = ypos;
+
+                WinMan::GetInstance()->CheckClick(me);
+            }
+        });
+
         while (!glfwWindowShouldClose(m_window)) {
             // We clear the current frame and front buffer.
             glClear(GL_COLOR_BUFFER_BIT);
@@ -79,6 +111,12 @@ namespace SUI {
             // We render all widgets of the current window onto the back buffer.
             for (auto w : m_widgets) {
                 w->Render();
+            }
+
+            // We perform the operation of the selected Widget.
+            if (m_selected) {
+                m_selected->Click();
+                m_selected = nullptr;
             }
 
             // We flush all drawing calls.

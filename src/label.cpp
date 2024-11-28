@@ -4,8 +4,8 @@
 
 using namespace SUI::Widget;
 
-Label::Label(const char *text, f32 x, f32 y, u16 padding) 
-	: IRenderable(x, y, 0, 0), ITextArea(text), m_pad(padding) {}
+Label::Label(const char *text, f32 x, f32 y, u16 padding)
+	: BaseWidget(text, x, y, 0, 0), m_pad(padding) {}
 
 Label::~Label() { m_text.clear(); }
 
@@ -39,4 +39,13 @@ void Label::Render(void) {
 		m_y,
 		m_foreground.b.red, m_foreground.b.green, m_foreground.b.blue, m_foreground.b.alpha
 		);
+}
+
+void Label::Click(void) {
+	if (m_func == nullptr)
+		return;
+
+	// Do some drawing calls before and after.
+
+	m_func(this, nullptr);
 }

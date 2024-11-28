@@ -5,7 +5,7 @@
 using namespace SUI::Widget;
 
 Button::Button(const char *text, f32 x, f32 y, f32 width, f32 height)
-                : IRenderable(x, y, width, height), ITextArea(text) {};
+                : BaseWidget(text, x, y, width, height) {};
 
 Button::~Button() {};
 
@@ -40,3 +40,14 @@ void Button::Render(void) {
 }
 
 void Button::ChangeText(const char *text) { m_text = text; }
+
+void Button::Click(void) {
+    if (m_func == nullptr)
+        return;
+
+	// Do some drawing calls before and after.
+    m_clickThread = std::thread(m_func, this, nullptr);
+
+    // We immediately wait for the finishing of the thread.
+    m_clickThread.join();
+}
