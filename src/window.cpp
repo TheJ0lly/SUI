@@ -15,7 +15,9 @@ namespace SUI {
         // glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
         // glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
         // glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-        // glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
+
+        // We use the Alpha channel, thus having RGBA.
+        glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_TRUE);
 
 
         // We create the window and the context.
