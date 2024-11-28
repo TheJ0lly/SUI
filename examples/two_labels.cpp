@@ -21,11 +21,10 @@ int main(int argc, char **argv) {
 		printf("I am clicked from the label with the text: %s\n", t->GetText().c_str());
 	});
 
-	auto b = new SUI::Widget::Button("Current Folder.", 20, 20, 144, 50);
+	auto b = new SUI::Widget::Label("Current Folder.", 20, 20);
 	b->SetBackground(255, 128, 128, 255);
 	b->SetForeground(255, 255, 255, 255);
 	b->SetClickFunc([](void *sender, void *eventArgs) -> void {
-		// Here we cast it as the actual type.
 		system("ls -la && echo '\n'");
 
 	});
