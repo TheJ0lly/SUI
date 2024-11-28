@@ -11,6 +11,10 @@ namespace GLW {
     } Rectangle;
 
     typedef struct {
+        f32 x, y;
+    } Point;
+
+    typedef struct {
         // In accordance to the endianess of the system, this is how the bytes should be aligned. 
         #if defined(__BYTE_ORDER__) && __BYTE_ORDER__ == __ORDER_BIG_ENDIAN__ 
         u8 alpha, blue, green, red;
@@ -33,19 +37,15 @@ namespace GLW {
     GLenum RenderRectangle(Rectangle r, Color c);
     
     /*
-    Returns the X coordinate of the center of the rectangle.
+    Returns XY coordinates of the center of the rectangle.
     */
-    f32 GetRectangleCenterX(f32 x1, f32 x2);
-
-    /*
-    Returns the Y coordinate of the center of the rectangle.
-    */
-    f32 GetRectangleCenterY(f32 y1, f32 y2);
+    Point GetRectangleCenter(Rectangle r);
+    Point GetRectangleCenter(f32 x1, f32 y1, f32 x2, f32 y2);
 
     /*
     It will render text.
     */
-    GLenum RenderText(const char *text, u32 textlen, f32 x, f32 y, u8 red, u8 green, u8 blue, u8 alpha);
-    GLenum RenderText(const char *text, u32 textlen, f32 x, f32 y, Color c);
+    GLenum RenderText(const char *text, f32 x, f32 y, u8 red, u8 green, u8 blue, u8 alpha);
+    GLenum RenderText(const char *text, f32 x, f32 y, Color c);
 }
 }

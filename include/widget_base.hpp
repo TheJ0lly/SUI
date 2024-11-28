@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 #include "core.hpp"
 #include "opengl_wrapper.hpp"
 
@@ -13,6 +15,7 @@ namespace Widget {
                 : m_x(x), m_y(y), m_width(width), m_height(height) {};
             ~IRenderable() {};
 
+            // Renders the specific item.
             virtual void Render(void) = 0;
             virtual void SetBackground(u8 red, u8 green, u8 blue, u8 alpha) { 
                 m_background.color = (alpha << 24) | (blue << 16) | (green << 8) | red; 
@@ -32,6 +35,20 @@ namespace Widget {
             GLW::Color m_background;
             GLW::Color m_foreground;
 
+    };
+
+    // This class represents a widget that contains text.
+    class ITextArea {
+        public:
+            ITextArea(const char *text)
+                :m_text(text) {};
+            ~ITextArea() {};
+            
+            // Sets the text of the label.
+            virtual void ChangeText(const char *text) = 0;
+
+        protected:
+            std::string m_text;
     };
 }
 }

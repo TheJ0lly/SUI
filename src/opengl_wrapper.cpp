@@ -33,16 +33,15 @@ namespace GLW {
         return RenderRectangle(r.x1, r.y1, r.x2, r.y2, c.b.red, c.b.green, c.b.blue, c.b.alpha);
     }
 
-    f32 GetRectangleCenterX(f32 x1, f32 x2) {
-        return (x1 + x2) / 2.0f;
-    }
-        
-    f32 GetRectangleCenterY(f32 y1, f32 y2) {
-        return (y1 + y2) / 2.0f;
+    Point GetRectangleCenter(Rectangle r) {
+        return GetRectangleCenter(r.x1, r.y1, r.x2, r.y2);
     }
 
+    Point GetRectangleCenter(f32 x1, f32 y1, f32 x2, f32 y2) {
+        return Point{.x = (x1 + x2) / 2.0f, .y = (y1 + y2) / 2.0f};
+    }
 
-    GLenum RenderText(const char *text, u32 textlen, f32 x, f32 y, u8 red, u8 green, u8 blue, u8 alpha) {
+    GLenum RenderText(const char *text, f32 x, f32 y, u8 red, u8 green, u8 blue, u8 alpha) {
         GLenum err;
         
         // Set the foreground color.
@@ -68,8 +67,8 @@ namespace GLW {
         return GL_NO_ERROR;
     }
 
-    GLenum RenderText(const char *text, u32 textlen, f32 x, f32 y, Color c) {
-        return RenderText(text, textlen, x, y, c.b.red, c.b.green, c.b.blue, c.b.alpha);
+    GLenum RenderText(const char *text, f32 x, f32 y, Color c) {
+        return RenderText(text, x, y, c.b.red, c.b.green, c.b.blue, c.b.alpha);
     }
 
 }
