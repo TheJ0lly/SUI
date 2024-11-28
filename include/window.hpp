@@ -13,7 +13,11 @@
 namespace SUI {
     class Window {
         public:
-            Window(const char *title, u16 width, u16 height);
+            /*
+            This is how we create a window.
+            At the end we can pass GLFW window hints to be set to `true`.
+            */
+            Window(const char *title, u16 width, u16 height);;
             ~Window();
 
             /* All values should be passed in the range 0-255. */

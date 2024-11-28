@@ -15,9 +15,7 @@ namespace SUI {
         // glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
         // glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
         // glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-        // We use the Alpha channel, thus having RGBA.
-        glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_TRUE);
+        // glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_TRUE);
 
 
         // We create the window and the context.
@@ -105,11 +103,14 @@ namespace SUI {
             }
         });
 
+        // We enable blending, thus we obtain Alpha influence on the colors.
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
         while (!glfwWindowShouldClose(m_window)) {
             // We clear the current frame and front buffer.
             glClear(GL_COLOR_BUFFER_BIT);
 
-            glMatrixMode(GL_MODELVIEW);
             // We render all widgets of the current window onto the back buffer.
             for (auto w : m_widgets) {
                 w->Render();
@@ -141,5 +142,8 @@ namespace SUI {
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
         gluOrtho2D(0, m_width, m_height, 0);
+
+        // We set the Model View matrix to work upon, so that we can draw stuff.
+        glMatrixMode(GL_MODELVIEW);
     }
 }
