@@ -11,7 +11,7 @@ namespace Widget {
     // It contains a position, width and height of the element.
     class IRenderable {
         public:
-            IRenderable(u16 x, u16 y, u16 width, u16 height)
+            IRenderable(f32 x, f32 y, f32 width, f32 height)
                 : m_x(x), m_y(y), m_width(width), m_height(height) {};
             ~IRenderable() {};
 
@@ -30,8 +30,8 @@ namespace Widget {
             virtual void SetForeground(GLW::Color c) { SetForeground(c.b.red, c.b.green, c.b.blue, c.b.alpha); };
 
         protected:
-            u16 m_x, m_y;
-            u16 m_width, m_height;
+            f32 m_x, m_y;
+            f32 m_width, m_height;
             GLW::Color m_background;
             GLW::Color m_foreground;
 

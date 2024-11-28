@@ -4,7 +4,7 @@
 
 using namespace SUI::Widget;
 
-Label::Label(const char *text, u16 x, u16 y, u16 padding) 
+Label::Label(const char *text, f32 x, f32 y, u16 padding) 
 	: IRenderable(x, y, 0, 0), ITextArea(text), m_pad(padding) {}
 
 Label::~Label() { m_text.clear(); }
