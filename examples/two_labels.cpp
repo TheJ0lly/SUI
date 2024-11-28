@@ -1,22 +1,37 @@
 #include "../include/window.hpp"
 #include "../include/label.hpp"
-#include "../include/opengl_wrapper.hpp"
+#include "../include/button.hpp"
 
 int main(int argc, char **argv) {
 	glutInit(&argc, argv);
-	SUI::Window win = SUI::Window("SUI: Simple UI", 400, 400);
+	// glutInitDisplayMode(GLUT_RGBA);
+
+	auto win = SUI::Window("SUI: Simple UI", 400, 400);
 	win.SetBackground(56, 56, 56, 255);
 
-	auto l = new SUI::Widget::Label("Hello, World!", 100, 100);
-	l->SetBackground(win.GetBackground());
+	auto l = new SUI::Widget::Label("Hello, World", 100, 100, 5);
+	// As long as Alpha is 0, everything is transparent.
+	l->SetBackground(0, 0, 0, 90);
 	l->SetForeground(255, 255, 255, 255);
+	l->SetClickFunc([](void *sender, void *eventArgs) -> void {
+		// Both of these work.
+		auto t = (SUI::Widget::BaseWidget*)sender;
+		// auto t = (SUI::Widget::Label*)sender;
 
-	auto w = new SUI::Widget::Label("WTF IS GOING ON!", 600, 600, 20);
-	w->SetBackground(128, 255, 128, 255);
-	w->SetForeground(0, 0, 0, 255);
+		printf("I am clicked from the label with the text: %s\n", t->GetText().c_str());
+	});
+
+	auto b = new SUI::Widget::Button("Current Folder.", 20, 20, 144, 50);
+	b->SetBackground(255, 128, 128, 255);
+	b->SetForeground(255, 255, 255, 255);
+	b->SetClickFunc([](void *sender, void *eventArgs) -> void {
+		// Here we cast it as the actual type.
+		system("ls -la && echo '\n'");
+
+	});
 
 	win.AddWidget(l);
-	win.AddWidget(w);
+	win.AddWidget(b);
 	
 	win.Run();
 }
