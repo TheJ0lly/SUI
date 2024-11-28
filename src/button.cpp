@@ -29,7 +29,11 @@ void Button::Render(void) {
     f32 textlen = m_text.length() * font_width;
     GLW::Point textStart;
 
+    // We take the absolute difference between the width and text len and divide it by 2 to get the left/right padding.
     textStart.x = r.x1 + (abs(m_width - textlen)) / 2.0f;
+
+    // We get the rectangle center and add half of the font size.
+    // We are adding to Y since the characters are drawn from the baseline.
     textStart.y = GLW::GetRectangleCenter(r).y + (font_height / 2.0f);
 
     GLW::RenderText(m_text.c_str(), textStart.x, textStart.y, m_foreground);
