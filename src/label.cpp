@@ -4,8 +4,8 @@
 
 using namespace SUI::Widget;
 
-Label::Label(const char *text, f32 x, f32 y, u16 padding) 
-	: BaseWidget(text, x, y, 0, 0), m_pad(padding) {
+Label::Label(const char *text, f32 x, f32 y, HighlightType ht, u16 padding) 
+	: BaseWidget(text, x, y, 0, 0, ht), m_pad(padding) {
 
 	/*
 	As of now we will use the default font of 8 by 13 that comes with glut.
@@ -68,12 +68,37 @@ void Label::Render(void) {
 }
 
 void Label::Click(void) {
-	if (m_func == nullptr)
-		return;
+    if (m_clickFunc == nullptr)
+        return;
+
+    u32 prevBkg = m_background.color;
+    u32 prevFg = m_foreground.color;
+
+    switch(m_highlightType) {
+	case DEFAULT:
+		DefaultHighlightingFunc(m_background, m_foreground);
+		break;
+	case CUSTOM:
+		if (m_highlightFunc == nullptr)
+			DefaultHighlightingFunc(m_background, m_foreground);
+		else
+			m_highlightFunc(m_background, m_foreground);
+
+		break;
+
+	default: // This should be the NONE case.
+		break;
+	}
+
+    Render();
 
 	// Do some drawing calls before and after.
-    m_clickThread = std::thread(m_func, this, nullptr);
+    m_clickThread = std::thread(m_clickFunc, this, nullptr);
 
     // We immediately wait for the finishing of the thread.
     m_clickThread.join();
+
+    // Then we just reset the background and foreground colors.
+    m_background.color = prevBkg;
+    m_foreground.color = prevFg;
 }

@@ -89,7 +89,7 @@ namespace SUI {
 
         // Window mouse press callback.
         glfwSetMouseButtonCallback(WinMan::GetInstance()->m_window, [](GLFWwindow *win, int button, int action, int mods) -> void {
-            if (action != GLFW_PRESS) {
+            if (action == GLFW_PRESS) {
                 f64 xpos, ypos;
                 glfwGetCursorPos(WinMan::GetInstance()->m_window, &xpos, &ypos);
                 Widget::MouseEvent me;
@@ -113,13 +113,13 @@ namespace SUI {
 
             // We render all widgets of the current window onto the back buffer.
             for (auto w : m_widgets) {
-                w->Render();
-            }
-
-            // We perform the operation of the selected Widget.
-            if (m_selected) {
-                m_selected->Click();
-                m_selected = nullptr;
+                // The selected widget will be rendered inside the Click function.
+                if (w == m_selected) {
+                    m_selected->Click();
+                    m_selected = nullptr;
+                } else {
+                    w->Render();
+                }
             }
 
             // We flush all drawing calls.
