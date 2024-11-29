@@ -1,2 +1,10 @@
 window.cpp: constructor - WindowHints make the window undrawable. (Check what why and if I can use them.)
 window.cpp: Run - instead of creating a callback, we check it manaully. Maybe make a Channel class to send from the callback to the X object (as generic as possible).
+
+Widgets:
+    Checkboxes  - Box + Label
+    Input Field - Text
+    Containers
+        Grid
+        Stack
+        
