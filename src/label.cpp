@@ -24,8 +24,6 @@ Label::Label(const char *text, f32 x, f32 y, u16 padding)
 
 	// If we have padding, we simply add them to the width and height and substract them from the starting point.
 	if (m_pad != 0) {
-		m_x -= m_pad;
-		m_y -= m_pad;
 		m_width += m_pad;
 		m_height += m_pad;
 	}
