@@ -8,7 +8,7 @@ int main(int argc, char **argv) {
 	auto win = SUI::Window("SUI: Simple UI", 400, 400);
 	win.SetBackground(56, 56, 56, 255);
 
-	auto l = new SUI::Widget::Label("Hello, World", 0, 0, SUI::Widget::NONE, 5);
+	auto l = new SUI::Widget::Label("Hello, World", 0, 0, SUI::Widget::NONE);
 	// As long as Alpha is 0, everything is transparent.
 	l->SetBackground(0, 0, 0, 90);
 	l->SetForeground(255, 255, 255, 255);
@@ -20,7 +20,7 @@ int main(int argc, char **argv) {
 		printf("I am clicked from the label with the text: %s\n", t->GetText().c_str());
 	});
 
-	auto bc = new SUI::Widget::Label("Another button", 100, 100, SUI::Widget::CUSTOM, 20);
+	auto bc = new SUI::Widget::Label("Another button", 100, 100, SUI::Widget::CUSTOM);
 	bc->SetBackground(25, 25, 25, 255);
 	bc->SetForeground(255, 255, 255, 255);
 	bc->SetClickFunc([](void *sender, void *eventArgs) -> void {

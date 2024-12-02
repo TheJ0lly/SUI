@@ -43,9 +43,6 @@ void Button::Render(void) {
 void Button::ChangeText(const char *text) { m_text = text; }
 
 void Button::Click(void) {
-    if (m_clickFunc == nullptr)
-        return;
-
     u32 prevBkg = m_background.color;
     u32 prevFg = m_foreground.color;
 
@@ -67,11 +64,13 @@ void Button::Click(void) {
 
     Render();
 
-	// Do some drawing calls before and after.
-    m_clickThread = std::thread(m_clickFunc, this, nullptr);
+    if (m_clickFunc != nullptr) {
+        // Do some drawing calls before and after.
+        m_clickThread = std::thread(m_clickFunc, this, nullptr);
 
-    // We immediately wait for the finishing of the thread.
-    m_clickThread.join();
+        // We immediately wait for the finishing of the thread.
+        m_clickThread.join();
+    }
 
     // Then we just reset the background and foreground colors.
     m_background.color = prevBkg;

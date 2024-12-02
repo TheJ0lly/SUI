@@ -4,8 +4,8 @@
 
 using namespace SUI::Widget;
 
-Label::Label(const char *text, f32 x, f32 y, HighlightType ht, u16 padding) 
-	: BaseWidget(text, x, y, 0, 0, ht), m_pad(padding) {
+Label::Label(const char *text, f32 x, f32 y, HighlightType ht) 
+	: BaseWidget(text, x, y, 0, 0, ht) {
 
 	/*
 	As of now we will use the default font of 8 by 13 that comes with glut.
@@ -17,16 +17,9 @@ Label::Label(const char *text, f32 x, f32 y, HighlightType ht, u16 padding)
 	/* 
 	We set these values so that the label will still have an invisible rectangle
 	which will never be drawed, and these values will be used as a hitbox.
-	This behaviour will only occur when there is no padding to the label.
 	*/
 	m_width = m_text.length() * font_width;
 	m_height = font_height;
-
-	// If we have padding, we simply add them to the width and height and substract them from the starting point.
-	if (m_pad != 0) {
-		m_width += m_pad;
-		m_height += m_pad;
-	}
 }
 
 Label::~Label() { m_text.clear(); }
@@ -39,13 +32,6 @@ void Label::Render(void) {
 	r.y1 = m_y;
 	r.x2 = m_x + m_width;
 	r.y2 = m_y + m_height;
-
-	// If we added padding, this means that there is a colored border we should draw behind the label.
-	// TODO: Change this and maybe add a IPaddable class/interface.
-	if (m_pad != 0) {
-		// Draw the rectangle that is the background of the label.
-		GLW::RenderRectangle(r, m_background);
-	}
 
 	f32 font_width = 8;
     f32 font_height = 9;
@@ -68,9 +54,6 @@ void Label::Render(void) {
 }
 
 void Label::Click(void) {
-    if (m_clickFunc == nullptr)
-        return;
-
     u32 prevBkg = m_background.color;
     u32 prevFg = m_foreground.color;
 
@@ -92,11 +75,13 @@ void Label::Click(void) {
 
     Render();
 
-	// Do some drawing calls before and after.
-    m_clickThread = std::thread(m_clickFunc, this, nullptr);
+	if (m_clickFunc != nullptr) {
+		// Do some drawing calls before and after.
+		m_clickThread = std::thread(m_clickFunc, this, nullptr);
 
-    // We immediately wait for the finishing of the thread.
-    m_clickThread.join();
+		// We immediately wait for the finishing of the thread.
+		m_clickThread.join();
+	}
 
     // Then we just reset the background and foreground colors.
     m_background.color = prevBkg;
