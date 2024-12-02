@@ -1,6 +1,6 @@
-#include "../include/window.hpp"
-#include "../include/label.hpp"
-#include "../include/button.hpp"
+#include "../include/window/window.hpp"
+#include "../include/widgets/label.hpp"
+#include "../include/widgets/button.hpp"
 
 int main(int argc, char **argv) {
 	glutInit(&argc, argv);
