@@ -17,8 +17,6 @@ namespace Widget {
             virtual void Render(void);
 
             virtual void ChangeText(const char *text);
-
-            virtual void Click(void);
     };
 }
 }

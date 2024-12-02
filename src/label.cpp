@@ -52,38 +52,3 @@ void Label::Render(void) {
 		m_foreground.b.red, m_foreground.b.green, m_foreground.b.blue, m_foreground.b.alpha
 		);
 }
-
-void Label::Click(void) {
-    u32 prevBkg = m_background.color;
-    u32 prevFg = m_foreground.color;
-
-    switch(m_highlightType) {
-	case DEFAULT:
-		DefaultHighlightingFunc(m_background, m_foreground);
-		break;
-	case CUSTOM:
-		if (m_highlightFunc == nullptr)
-			DefaultHighlightingFunc(m_background, m_foreground);
-		else
-			m_highlightFunc(m_background, m_foreground);
-
-		break;
-
-	default: // This should be the NONE case.
-		break;
-	}
-
-    Render();
-
-	if (m_clickFunc != nullptr) {
-		// Do some drawing calls before and after.
-		m_clickThread = std::thread(m_clickFunc, this, nullptr);
-
-		// We immediately wait for the finishing of the thread.
-		m_clickThread.join();
-	}
-
-    // Then we just reset the background and foreground colors.
-    m_background.color = prevBkg;
-    m_foreground.color = prevFg;
-}
