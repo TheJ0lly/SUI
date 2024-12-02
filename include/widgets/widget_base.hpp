@@ -5,8 +5,7 @@
 #include "../interfaces/ITextArea.hpp"
 #include "../interfaces/IClickable.hpp"
 
-namespace SUI {
-namespace Widget {
+namespace SUI::Widget {
     // The base class for all widgets
     class BaseWidget : public IRenderable, public ITextArea, public IClickable {
         public:
@@ -50,5 +49,4 @@ namespace Widget {
                 m_foreground.color = prevFg;
             }
     };
-}
 }

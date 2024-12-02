@@ -4,8 +4,7 @@
 
 #include "widget_base.hpp"
 
-namespace SUI {
-namespace Widget {
+namespace SUI::Widget {
     class Label : public BaseWidget {
         public:
             /*
@@ -18,5 +17,4 @@ namespace Widget {
 
             virtual void ChangeText(const char *text);
     };
-}
 }

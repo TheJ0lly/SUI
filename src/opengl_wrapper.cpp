@@ -1,7 +1,6 @@
 #include "../include/core_GL/opengl_wrapper.hpp"
 
-namespace SUI {
-namespace GLW {
+namespace SUI::GLW {
 
     GLenum RenderRectangle(f32 x1, f32 y1, f32 x2, f32 y2, u8 red, u8 green, u8 blue, u8 alpha) {
         GLenum err;
@@ -73,6 +72,4 @@ namespace GLW {
     GLenum RenderText(const char *text, f32 x, f32 y, Color c) {
         return RenderText(text, x, y, c.b.red, c.b.green, c.b.blue, c.b.alpha);
     }
-
-}
 }

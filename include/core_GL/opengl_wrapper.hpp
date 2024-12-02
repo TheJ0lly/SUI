@@ -4,8 +4,7 @@
 
 #include <GL/freeglut.h>
 
-namespace SUI {
-namespace GLW {
+namespace SUI::GLW {
     typedef struct {
         f32 x1, x2, y1, y2;
     } Rectangle;
@@ -47,5 +46,4 @@ namespace GLW {
     */
     GLenum RenderText(const char *text, f32 x, f32 y, u8 red, u8 green, u8 blue, u8 alpha);
     GLenum RenderText(const char *text, f32 x, f32 y, Color c);
-}
 }

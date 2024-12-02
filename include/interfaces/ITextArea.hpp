@@ -1,7 +1,6 @@
 #include <string>
 
-namespace SUI {
-namespace Widget {
+namespace SUI::Widget {
     // This class represents a widget that contains text.
     class ITextArea {
         public:
@@ -16,5 +15,4 @@ namespace Widget {
         protected:
             std::string m_text;
     };
-}    
 }

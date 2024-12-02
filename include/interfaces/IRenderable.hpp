@@ -3,8 +3,7 @@
 #include "../core_GL/core.hpp"
 #include "../core_GL/opengl_wrapper.hpp"
 
-namespace SUI {
-namespace Widget {
+namespace SUI::Widget {
     // It contains a position, width and height of the element.
     class IRenderable {
         public:
@@ -33,5 +32,4 @@ namespace Widget {
             GLW::Color m_foreground;
 
     };
-}   
 }

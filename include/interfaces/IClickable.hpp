@@ -5,8 +5,7 @@
 #include "../core_GL/core.hpp"
 #include "../core_GL/opengl_wrapper.hpp"
 
-namespace SUI {
-namespace Widget {
+namespace SUI::Widget {
     typedef struct {
         f64 xpos, ypos;
         s32 action, button, mods;
@@ -52,6 +51,5 @@ namespace Widget {
             HighlightFunc m_highlightFunc;
             ClickFunc m_clickFunc;
             std::thread m_clickThread;
-    };   
-}
+    };
 }
