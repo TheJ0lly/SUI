@@ -1,4 +1,4 @@
-#include "../include/window_manager.hpp"
+#include "../include/window/window_manager.hpp"
 
 SUI::Window *SUI::WinMan::m_currentWindow;
 

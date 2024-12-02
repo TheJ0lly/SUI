@@ -1,5 +1,5 @@
-#include "../include/window.hpp"
-#include "../include/window_manager.hpp"
+#include "../include/window/window.hpp"
+#include "../include/window/window_manager.hpp"
 #include <GL/freeglut.h>
 
 namespace SUI {

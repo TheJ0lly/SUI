@@ -1,4 +1,4 @@
-#include "../include/opengl_wrapper.hpp"
+#include "../include/core_GL/opengl_wrapper.hpp"
 
 namespace SUI {
 namespace GLW {

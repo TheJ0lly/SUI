@@ -1,6 +1,6 @@
-#include "../include/label.hpp"
-#include "../include/window_manager.hpp"
-#include "../include/opengl_wrapper.hpp"
+#include "../include/widgets/label.hpp"
+#include "../include/window/window_manager.hpp"
+#include "../include/core_GL/opengl_wrapper.hpp"
 
 using namespace SUI::Widget;
 

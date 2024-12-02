@@ -7,8 +7,8 @@
 #include <GLFW/glfw3.h>
 
 // Internal
-#include "core.hpp"
-#include "widget_base.hpp"
+#include "../core_GL/core.hpp"
+#include "../widgets/widget_base.hpp"
 
 namespace SUI {
     class Window {
