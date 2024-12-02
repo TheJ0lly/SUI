@@ -49,6 +49,6 @@ void Label::Render(void) {
 		m_text.c_str(), 
 		textStart.x, 
 		textStart.y,
-		m_foreground.b.red, m_foreground.b.green, m_foreground.b.blue, m_foreground.b.alpha
+		m_foreground
 		);
 }
