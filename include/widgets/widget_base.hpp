@@ -37,6 +37,7 @@ namespace SUI::Widget {
                 Render();
                 
                 // Then we just reset the background and foreground colors.
+                // We must do this after the render call, because the click func may change the colors.
                 m_background.color = prevBkg;
                 m_foreground.color = prevFg;
 
