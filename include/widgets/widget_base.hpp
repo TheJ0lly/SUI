@@ -35,18 +35,19 @@ namespace SUI::Widget {
                 }
 
                 Render();
+                
+                // Then we just reset the background and foreground colors.
+                m_background.color = prevBkg;
+                m_foreground.color = prevFg;
 
                 if (m_clickFunc != nullptr) {
                     // Do some drawing calls before and after.
-                    m_clickThread = std::thread(m_clickFunc, this, nullptr);
+                    m_clickThread = std::thread(m_clickFunc, (void *)this, nullptr);
 
                     // We immediately wait for the finishing of the thread.
                     m_clickThread.join();
                 }
 
-                // Then we just reset the background and foreground colors.
-                m_background.color = prevBkg;
-                m_foreground.color = prevFg;
             }
     };
 }
