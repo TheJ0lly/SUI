@@ -1,7 +1,13 @@
 window.cpp: constructor - WindowHints make the window undrawable. (Check what why and if I can use them.)
 window.cpp: Run - instead of creating a callback, we check it manaully. Maybe make a Channel class to send from the callback to the X object (as generic as possible).
 
+UICommand queue in Window - OpenGL functions need to be called on the same thread as the window, thus we need a functions queue in the window that needs to be executed after rendering all widgets.
+
+
 Widgets:
+    All:
+        - When changing text recompute variables for drawing.
+
     Checkboxes  - Box + Label
     Input Field - Text
     Containers
