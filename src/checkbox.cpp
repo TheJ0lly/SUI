@@ -20,6 +20,9 @@ Checkbox::~Checkbox() {};
 
 void Checkbox::ChangeText(const char *text) {
     m_text = text;
+
+    f32 font_width = 8;
+    m_width = m_text.length() * font_width + m_txtbox_dist;
 }
 
 void Checkbox::SetValue(bool val) {

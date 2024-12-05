@@ -24,7 +24,11 @@ Label::Label(const char *text, f32 x, f32 y, HighlightType ht)
 
 Label::~Label() { m_text.clear(); }
 
-void Label::ChangeText(const char *text) { m_text = text; }
+void Label::ChangeText(const char *text) { 
+	m_text = text; 
+	f32 font_width = 8;
+	m_width = m_text.length() * font_width;
+}
 
 void Label::Render(void) {
 	GLW::Rectangle r;
