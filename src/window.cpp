@@ -48,11 +48,11 @@ namespace SUI {
         return m_background;
     }
 
-    u16 Window::GetWidth(void) const { return m_width; };
+    u16 Window::GetWidth(void) const { return m_width; }
 
     u16 Window::GetHeight(void) const { return m_height; }
 
-    void Window::SetWidth(u16 width) { m_width = width; };
+    void Window::SetWidth(u16 width) { m_width = width; }
 
     void Window::SetHeight(u16 height) { m_height = height; }
 
