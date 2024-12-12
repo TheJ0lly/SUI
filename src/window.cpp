@@ -22,6 +22,9 @@ namespace SUI {
         m_window = glfwCreateWindow(m_width, m_height, title, nullptr, nullptr);
         glfwMakeContextCurrent(m_window);
 
+        // We store the UI thread id.
+        m_threadID = std::this_thread::get_id();
+        
         ResetOrthoMatrix();
 
         // Creating a new window, automatically selects it as the current window.
@@ -32,8 +35,13 @@ namespace SUI {
     Window::~Window() { /* We free the window. */glfwDestroyWindow(m_window); }
 
     void Window::SetBackground(u8 red, u8 green, u8 blue, u8 alpha) {
-        m_background.color = (alpha << 24) | (blue << 16) | (green << 8) | red;
-        glClearColor( red / 255.0f, green / 255.0f, blue / 255.0f, alpha / 255.0f );
+        this->m_background.color = (alpha << 24) | (blue << 16) | (green << 8) | red;
+        auto func = std::bind(glClearColor, red / 255.0f, green / 255.0f, blue / 255.0f, alpha / 255.0f );
+        if (std::this_thread::get_id() != m_threadID) {
+            this->m_ui.push_back(func);
+        } else {
+            func();
+        }
     }
 
     GLW::Color Window::GetBackground(void) {
@@ -48,7 +56,7 @@ namespace SUI {
 
     void Window::SetHeight(u16 height) { m_height = height; }
 
-    void Window::AddWidget(Widget::BaseWidget *w) { m_widgets.push_back(w); }
+    void Window::AddWidget(Widget::BaseWidget *w) { w->SetParent(this); m_widgets.push_back(w); }
 
     void Window::CheckClick(Widget::MouseEvent eventArgs) {
         for (auto w : m_widgets) {
@@ -108,8 +116,14 @@ namespace SUI {
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
         while (!glfwWindowShouldClose(m_window)) {
+            // Execute all UI functions that were called from different threads.
+            for (auto f : m_ui) {
+                f();
+            }
+            
             // We clear the current frame and front buffer.
             glClear(GL_COLOR_BUFFER_BIT);
+
 
             // We render all widgets of the current window onto the back buffer.
             for (auto w : m_widgets) {

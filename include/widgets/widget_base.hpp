@@ -50,5 +50,11 @@ namespace SUI::Widget {
                 }
 
             }
+
+            void SetParent(void *obj) {parent = obj;}
+            void *GetParent() {return parent;}
+
+        private:
+            void *parent;
     };
 }

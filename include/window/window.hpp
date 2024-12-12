@@ -2,6 +2,7 @@
 
 // STD Libraries
 #include <vector>
+#include <functional>
 
 // OpenGL libraries
 #include <GLFW/glfw3.h>
@@ -78,6 +79,9 @@ namespace SUI {
 
             // The background color
             GLW::Color m_background;
+
+            std::thread::id m_threadID;
+            std::vector<std::function<void()>> m_ui;
 
             // The widgets this window will handle.
             std::vector<Widget::BaseWidget *> m_widgets;
